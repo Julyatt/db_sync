@@ -2,8 +2,7 @@ package com.digitalcitylab.dbsync.domain;
 
 import com.digitalcitylab.dbsync.constants.SqlOperateEnum;
 
-import static com.digitalcitylab.dbsync.constants.SqlConst.DROP_TB_SQL;
-import static com.digitalcitylab.dbsync.constants.SqlConst.MODIFY_COL_SQL;
+import static com.digitalcitylab.dbsync.constants.SqlConst.*;
 
 /**
  * @Description:
@@ -32,16 +31,25 @@ public class SqlOperate {
 	public String generateSql() {
 		if (operateType == SqlOperateEnum.CREATE_TB)
 		{
+			// 创建表
 			sqlScript = createTbSql;
 		} else if (operateType == SqlOperateEnum.DROP_TB)
 		{
+			// 删除表
 			sqlScript = String.format(DROP_TB_SQL, tableName);
 		} else if (operateType == SqlOperateEnum.MODIFY_FIELD)
 		{
+			// 修改表字段
 			sqlScript = String.format(MODIFY_COL_SQL, tableName, field.getFieldName(), field.getType());
+		} else if (operateType == SqlOperateEnum.ADD_FILED)
+		{
+			// 新增表字段
+			sqlScript = String.format(ADD_COL_SQL, tableName, field.getFieldName(), field.getType());
+		} else if (operateType == SqlOperateEnum.DROP_FIELD)
+		{
+			// 删除表字段
+			sqlScript = String.format(DROP_COL_SQL, tableName, field.getFieldName(), field.getType());
 		}
-
-
 		return sqlScript;
 	}
 

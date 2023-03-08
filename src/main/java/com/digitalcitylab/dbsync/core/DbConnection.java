@@ -1,6 +1,9 @@
 package com.digitalcitylab.dbsync.core;
 
+import com.digitalcitylab.dbsync.DbSyncApplication;
 import com.digitalcitylab.dbsync.domain.Config;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +12,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.Properties;
+
 
 /**
  * @Description:
@@ -18,6 +21,8 @@ import java.util.Properties;
  * @Date: 2023/3/3
  **/
 public class DbConnection {
+
+	private static final Logger LOG = LoggerFactory.getLogger(DbConnection.class);
 
 	public static Connection buildConnect(String type) {
 		Connection connection = null;

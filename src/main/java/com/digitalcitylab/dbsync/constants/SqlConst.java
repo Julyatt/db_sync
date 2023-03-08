@@ -36,7 +36,7 @@ public class SqlConst {
 	/**
 	 * 增加字段
 	 */
-	public static final String ADD_COL_SQL = "ALTER TABLE %s ADD COLUMN %s %s";
+	public static final String ADD_COL_SQL = "ALTER TABLE %s ADD COLUMN %s %s;";
 
 	/**
 	 * 删除字段
@@ -46,7 +46,7 @@ public class SqlConst {
 	/**
 	 * 修改字段
 	 */
-	public static final String MODIFY_COL_SQL = "ALTER TABLE %s MODIFY %s %s";
+	public static final String MODIFY_COL_SQL = "ALTER TABLE %s MODIFY %s %s;";
 
 	/**
 	 * 增加索引

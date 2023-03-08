@@ -1,6 +1,9 @@
 package com.digitalcitylab.dbsync.domain;
 
+import com.digitalcitylab.dbsync.DbSyncApplication;
 import com.digitalcitylab.dbsync.constants.SqlConst;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +19,7 @@ import java.util.List;
  * @Date: 2023/3/3
  **/
 public class SyncService {
-
+	private static final Logger LOG = LoggerFactory.getLogger(SyncService.class);
 	public static List<Table> getTables(Connection connection) {
 		List<Table> sourTableList = new ArrayList<Table>();
 		try
@@ -42,14 +45,20 @@ public class SyncService {
 			}
 		} catch (SQLException e)
 		{
-			throw new RuntimeException(e);
+			LOG.error(e.getMessage());
+			throw e;
 		} finally
 		{
 			try
 			{
-				connection.close();
+				if (connection != null)
+				{
+					connection.close();
+				}
+
 			} catch (SQLException e)
 			{
+				LOG.error(e.getMessage());
 				throw new RuntimeException(e);
 			}
 			return sourTableList;

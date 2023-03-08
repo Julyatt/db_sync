@@ -3,13 +3,13 @@ package com.digitalcitylab.dbsync.core;
 import com.digitalcitylab.dbsync.constants.SqlOperateEnum;
 import com.digitalcitylab.dbsync.domain.Field;
 import com.digitalcitylab.dbsync.domain.SqlOperate;
-import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -26,27 +26,28 @@ public final class FileUtils {
 		{
 			if (sqlOperateEnum == null)
 			{
-				writeToSqlScript("###########数据同步脚本########### \r\n");
+				writeToSqlScript(String.format("###########数据同步脚本,生成时间: %s########### \r\n",
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))));
 			}
 			sqlOperateEnum = sqlOperate.getOperateType();
 			if (sqlOperateEnum.equals(sqlOperate.getOperateType()))
 			{
 				if (sqlOperate.getOperateType() == SqlOperateEnum.CREATE_TB)
 				{
-					writeToSqlScript("###########新建表########### \r\n");
+					writeToSqlScript( String.format("###########新建表%s########### \r\n", sqlOperate.getTableName()));
 				}else if (sqlOperate.getOperateType() == SqlOperateEnum.DROP_TB)
 				{
-					writeToSqlScript("###########删除表########### \r\n");
+					writeToSqlScript(String.format("###########删除表%s########### \r\n", sqlOperate.getTableName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.ADD_FILED)
 				{
-					writeToSqlScript("###########增加字段########### \r\n");
+					writeToSqlScript(String.format("###########%s表增加字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.DROP_FIELD)
 				{
-					writeToSqlScript("###########删除字段########### \r\n");
+					writeToSqlScript(String.format("###########%s表删除字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				}
 				else if (sqlOperate.getOperateType() == SqlOperateEnum.MODIFY_FIELD)
 				{
-					writeToSqlScript("###########修改字段########### \r\n");
+					writeToSqlScript(String.format("###########%s表修改字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.ADD_INDEX)
 				{
 					writeToSqlScript("###########增加索引########### \r\n");
@@ -64,11 +65,7 @@ public final class FileUtils {
 
 			writeToSqlScript(sqlScript);
 
-
-
 		}
-
-
 	}
 
 	public static void writeToSqlScript(String text) {

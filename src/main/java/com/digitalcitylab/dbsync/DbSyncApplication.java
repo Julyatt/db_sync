@@ -3,6 +3,8 @@ package com.digitalcitylab.dbsync;
 import com.digitalcitylab.dbsync.core.DbConnection;
 import com.digitalcitylab.dbsync.core.FileUtils;
 import com.digitalcitylab.dbsync.domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,12 +18,14 @@ import java.util.List;
  **/
 public class DbSyncApplication {
 
+	private static final Logger LOG = LoggerFactory.getLogger(DbSyncApplication.class);
 	public static void main(String[] args) {
 		// 初始化读取配置
 
 		try
 		{
 			Config.loadConfig();
+			LOG.info(Config.getAllConfig().toString());
 		} catch (IOException e)
 		{
 			throw new RuntimeException(e);
