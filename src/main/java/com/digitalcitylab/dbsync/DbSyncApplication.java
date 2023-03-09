@@ -19,6 +19,7 @@ import java.util.List;
 public class DbSyncApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DbSyncApplication.class);
+
 	public static void main(String[] args) {
 		// 初始化读取配置
 
@@ -28,6 +29,7 @@ public class DbSyncApplication {
 			LOG.info(Config.getAllConfig().toString());
 		} catch (IOException e)
 		{
+			LOG.error(e.getMessage());
 			throw new RuntimeException(e);
 		}
 
@@ -51,6 +53,7 @@ public class DbSyncApplication {
 			FileUtils.generateScriptFile(compare);
 		} catch (Exception exception)
 		{
+			LOG.error(exception.getMessage());
 			throw exception;
 		}
 

@@ -7,6 +7,20 @@
   <artifactId>db_sync</artifactId>
   <version>1.0-SNAPSHOT</version>
   <build>
+
+    <sourceDirectory>src/main/java</sourceDirectory>
+
+    <resources>
+      <resource>
+          <directory>src/main/resources</directory>
+        <includes>
+          <include>properties</include>
+        </includes>
+        <filtering>false</filtering>
+        <targetPath>${project.build.directory}/config</targetPath>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -24,9 +38,33 @@
           <archive>
             <manifest>
               <mainClass>com.digitalcitylab.dbsync.DbSyncApplication</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
             </manifest>
+            <manifestEntries>
+              <Class-Path>config/</Class-Path>
+            </manifestEntries>
           </archive>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>cocy</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirect>
+                ${project.build.directory}/lib
+              </outputDirect>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>

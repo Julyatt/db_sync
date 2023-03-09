@@ -34,30 +34,30 @@ public final class FileUtils {
 			{
 				if (sqlOperate.getOperateType() == SqlOperateEnum.CREATE_TB)
 				{
-					writeToSqlScript( String.format("###########新建表%s########### \r\n", sqlOperate.getTableName()));
+					writeToSqlScript( String.format("\n ###########新建表%s########### \r\n", sqlOperate.getTableName()));
 				}else if (sqlOperate.getOperateType() == SqlOperateEnum.DROP_TB)
 				{
-					writeToSqlScript(String.format("###########删除表%s########### \r\n", sqlOperate.getTableName()));
+					writeToSqlScript(String.format("\n ###########删除表%s########### \r\n", sqlOperate.getTableName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.ADD_FILED)
 				{
-					writeToSqlScript(String.format("###########%s表增加字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
+					writeToSqlScript(String.format("\n ###########%s表增加字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.DROP_FIELD)
 				{
-					writeToSqlScript(String.format("###########%s表删除字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
+					writeToSqlScript(String.format("\n ###########%s表删除字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				}
 				else if (sqlOperate.getOperateType() == SqlOperateEnum.MODIFY_FIELD)
 				{
-					writeToSqlScript(String.format("###########%s表修改字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
+					writeToSqlScript(String.format("\n ###########%s表修改字段%s########### \r\n", sqlOperate.getTableName(), sqlOperate.getField().getFieldName()));
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.ADD_INDEX)
 				{
-					writeToSqlScript("###########增加索引########### \r\n");
+					writeToSqlScript("\n ###########增加索引########### \r\n");
 				}
 				else if (sqlOperate.getOperateType() == SqlOperateEnum.DROP_INDEX)
 				{
-					writeToSqlScript("###########删除索引########### \r\n");
+					writeToSqlScript("\n ###########删除索引########### \r\n");
 				} else if (sqlOperate.getOperateType() == SqlOperateEnum.MODIFY_INDEX)
 				{
-					writeToSqlScript("###########修改索引########### \r\n");
+					writeToSqlScript("\n ###########修改索引########### \r\n");
 				}
 			}
 
@@ -77,7 +77,7 @@ public final class FileUtils {
 		BufferedWriter bufferedWriter = null;
 		try
 		{
-			String filePath = "./dml" + ".sql";
+			String filePath = "./ddl.sql";
 
 			File file = new File(filePath);
 
@@ -88,7 +88,7 @@ public final class FileUtils {
 			}
 			fw = new FileWriter(filePath, true);
 			bufferedWriter = new BufferedWriter(fw);
-			bufferedWriter.write(text);
+			bufferedWriter.write(text + "\r\n");
 			bufferedWriter.write("\r\n");
 
 		} catch (IOException e)

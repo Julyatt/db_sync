@@ -1,6 +1,5 @@
 package com.digitalcitylab.dbsync.domain;
 
-import com.digitalcitylab.dbsync.DbSyncApplication;
 import com.digitalcitylab.dbsync.constants.SqlConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
